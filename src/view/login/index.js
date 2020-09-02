@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
+import {Link} from 'react-router-dom'
 
 import firebase from "../../config/firebase";
 import "firebase/auth";
@@ -13,10 +14,10 @@ function Login() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, senha)
-      .then((resultado) => {
+      .then(resultado => {
         setMsgTipo("sucesso");
       })
-      .catch((erro) => {
+      .catch(erro => {
         setMsgTipo("erro");
       });
   }
@@ -29,14 +30,14 @@ function Login() {
         </div>
 
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           type="email"
           id="inputEmail"
           className="form-control my-2"
           placeholder="E-mail"
         />
         <input
-          onChange={(e) => setSenha(e.target.value)}
+          onChange={e => setSenha(e.target.value)}
           type="password"
           id="inputPassword"
           className="form-control my-2"
@@ -52,8 +53,17 @@ function Login() {
         </button>
 
         <div className="msg-login text-white text-center my-5">
-          {msgTipo === "sucesso" && <span><strong>Wow</strong> você está conectado! &#128526;</span>}
-          {msgTipo === "erro" && <span><strong>Ops</strong> verifique se o usuário e/ou a senha estão corretos! &#128549;</span>}
+          {msgTipo === "sucesso" && (
+            <span>
+              <strong>Wow</strong> você está conectado! &#128526;
+            </span>
+          )}
+          {msgTipo === "erro" && (
+            <span>
+              <strong>Ops</strong> verifique se o usuário e/ou a senha estão
+              corretos! &#128549;
+            </span>
+          )}
         </div>
 
         <div className="opcoes-login text-center mt-5">
@@ -61,9 +71,9 @@ function Login() {
             Recuperar senha
           </a>
           <span className="text-white">&#9733;</span>
-          <a href="#" className="mx-2">
+          <Link to="novousuario" className="mx-2">
             Quero cadastrar
-          </a>
+          </Link>
         </div>
       </form>
     </div>
