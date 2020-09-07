@@ -10,9 +10,7 @@ function NavBar() {
 
   return (
     <nav className="navbar navbar-expand-lg">
-      <span className="navbar-brand text-white font-weight-bold" href="#">
-        Eventos
-      </span>
+      <i class="far fa-smile-wink text-white fa-2x"></i>
       <button
         className="navbar-toggler"
         type="button"
@@ -26,7 +24,7 @@ function NavBar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          <li className="nav-item">
+          <li className="nav-item ml-2">
             <Link className="nav-link" to="/">
               Home
             </Link>
@@ -35,7 +33,7 @@ function NavBar() {
             useSelector(state => state.usuarioLogado) > 0 ?
             <>
               <li className="nav-item">
-                <Link className="nav-link" to="">
+                <Link className="nav-link" to="cadastrar-evento">
                   Publicar evento
                 </Link>
               </li>
