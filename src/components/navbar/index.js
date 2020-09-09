@@ -10,7 +10,7 @@ function NavBar() {
 
   return (
     <nav className="navbar navbar-expand-lg">
-      <i class="far fa-smile-wink text-white fa-2x"></i>
+      <i className="far fa-smile-wink text-white fa-2x"></i>
       <button
         className="navbar-toggler"
         type="button"
@@ -20,7 +20,7 @@ function NavBar() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <i class="fas fa-bars text-white"></i>
+        <i className="fas fa-bars text-white"></i>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
