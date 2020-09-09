@@ -33,7 +33,7 @@ function NavBar() {
             useSelector(state => state.usuarioLogado) > 0 ?
             <>
               <li className="nav-item">
-                <Link className="nav-link" to="cadastrar-evento">
+                <Link className="nav-link" to="/cadastrar-evento">
                   Publicar evento
                 </Link>
               </li>
