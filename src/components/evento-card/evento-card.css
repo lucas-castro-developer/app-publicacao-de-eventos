@@ -20,5 +20,6 @@
 
 .img-cartao {
     min-width: 100%;
+    min-height: 200px;
     max-height: 200px;
 }
