@@ -23,19 +23,21 @@ function EventoCadastro(props) {
   const db = firebase.firestore();
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("eventos")
-      .doc(props.match.params.id)
-      .get()
-      .then(resultado => {
-        setTitulo(resultado.data().titulo);
-        setTipo(resultado.data().tipo);
-        setDetalhes(resultado.data().detalhes);
-        setData(resultado.data().data);
-        setHora(resultado.data().hora);
-        setFotoAtual(resultado.data().foto);
-      });
+    if (props.match.params.id) {
+      firebase
+        .firestore()
+        .collection("eventos")
+        .doc(props.match.params.id)
+        .get()
+        .then(resultado => {
+          setTitulo(resultado.data().titulo);
+          setTipo(resultado.data().tipo);
+          setDetalhes(resultado.data().detalhes);
+          setData(resultado.data().data);
+          setHora(resultado.data().hora);
+          setFotoAtual(resultado.data().foto);
+        });
+    }
   }, [carregando]);
 
   function cadastrar() {
@@ -75,9 +77,7 @@ function EventoCadastro(props) {
     setCarregando(1);
 
     if (fotoAtual) {
-      storage
-      .ref(`imagens/${fotoNova.name}`)
-      .put(fotoNova);
+      storage.ref(`imagens/${fotoNova.name}`).put(fotoNova);
 
       db.collection("eventos")
         .doc(props.match.params.id)
@@ -170,7 +170,12 @@ function EventoCadastro(props) {
           </div>
 
           <div className="form-group">
-            <label>Upload da foto: {props.match.params.id ? "(Caso queira manter a foto atual, pode pular a alteração deste campo!)" : null}</label>
+            <label>
+              Upload da foto:{" "}
+              {props.match.params.id
+                ? "(Caso queira manter a foto atual, pode pular a alteração deste campo!)"
+                : null}
+            </label>
             <input
               onChange={e => setFotoNova(e.target.files[0])}
               type="file"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./evento-detalhes.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import firebase from "../../config/firebase";
 
@@ -12,6 +12,7 @@ function EventoDetalhes(props) {
   const [evento, setEvento] = useState({});
   const [urlImage, setUrlImage] = useState({});
   const [carregando, setCarregando] = useState(1);
+  const [excluido, setExcluido] = useState(0);
   const usuarioLogado = useSelector(state => state.usuarioEmail);
 
   useEffect(() => {
@@ -49,9 +50,23 @@ function EventoDetalhes(props) {
     }
   }, []);
 
+  function remover() {
+    firebase
+      .firestore()
+      .collection("eventos")
+      .doc(props.match.params.id)
+      .delete()
+      .then(() => {
+        setExcluido(1);
+      });
+  }
+
   return (
     <>
       <NavBar />
+
+      {excluido ? <Redirect to="/" /> : null}
+
       <div className="container-fluid">
         {carregando ? (
           <div className="row mt-5">
@@ -71,7 +86,6 @@ function EventoDetalhes(props) {
                 <strong>{evento.titulo}</strong>
               </h3>
             </div>
-
             <div className="row mt-5 d-flex justify-content-around">
               <div className="col-md-3 col-sm-12 box-info p-3 my-2">
                 <i className="fas fa-ticket-alt fa-2x"></i>
@@ -97,7 +111,6 @@ function EventoDetalhes(props) {
                 <span className="mt-3">{evento.hora}</span>
               </div>
             </div>
-
             <div className="row box-detalhes mt-5">
               <div className="col-12 text-center">
                 <h5>
@@ -108,11 +121,24 @@ function EventoDetalhes(props) {
                 <p>{evento.detalhes}</p>
               </div>
             </div>
-
             {usuarioLogado === evento.usuario ? (
-              <Link to={`/editar-evento/${props.match.params.id}`} className="btn-editar">
+              <Link
+                to={`/editar-evento/${props.match.params.id}`}
+                className="btn-editar"
+              >
                 <i className="fas fa-pen-square fa-3x"></i>
               </Link>
+            ) : (
+              ""
+            )}
+            {usuarioLogado === evento.usuario ? (
+              <button
+                onClick={remover}
+                type="button"
+                className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro"
+              >
+                Remover evento
+              </button>
             ) : (
               ""
             )}
