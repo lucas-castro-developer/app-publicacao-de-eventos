@@ -110,7 +110,7 @@ function EventoDetalhes(props) {
             </div>
 
             {usuarioLogado === evento.usuario ? (
-              <Link to="" className="btn-editar">
+              <Link to={`/editar-evento/${props.match.params.id}`} className="btn-editar">
                 <i className="fas fa-pen-square fa-3x"></i>
               </Link>
             ) : (
